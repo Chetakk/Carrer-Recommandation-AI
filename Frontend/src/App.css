@@ -1,7 +1,19 @@
+/* Root-level fixes to prevent any viewport width changes */
+* {
+  box-sizing: border-box;
+}
+
 body,
 html {
-  width: 100vw;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important; /* Force hide horizontal overflow */
+  min-height: 100vh;
+  position: relative;
+  max-width: 100vw; /* Limit to viewport width */
 }
+
 .externalContainer {
   display: flex;
   flex-direction: row;
@@ -23,18 +35,29 @@ html {
   box-shadow: 0 4px 12px rgba(10, 17, 17, 0.15);
 }
 
-/* New vertical layout styles */
+/* Prevent container expansion */
 .verticalContainer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
   width: 100%;
-  /* max-width: 720px; */
+  max-width: 1000px; /* Slightly reduced maximum width */
   margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: #0a1111;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+/* Fixed width for content sections */
+.formSection,
+.outputSection {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Hide overflow */
+  box-sizing: border-box;
 }
 
 .formSection {
@@ -63,8 +86,9 @@ html {
   padding: 1.5rem;
   border-radius: 8px;
   background-color: #000000;
-  width: 90%;
   box-shadow: 0 4px 12px rgba(10, 17, 17, 0.2);
+  min-height: 200px;
+  transition: all 0.3s ease;
 }
 
 h2 {
@@ -156,12 +180,20 @@ hr {
   border-left: 4px solid #ba88bd;
 }
 
+/* Extra restrictive styles for result display */
 .result {
   padding: 1rem;
   background-color: rgba(92, 165, 165, 0.1);
   border-radius: 4px;
   border-left: 4px solid #5ca5a5;
-  white-space: pre-wrap;
+  color: #00ffcc;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: height 0.3s ease;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .info-message {
@@ -173,8 +205,17 @@ hr {
   margin-bottom: 1rem;
 }
 
+/* Make sure pre tag doesn't expand */
 pre {
   color: #539e9e;
+  white-space: pre-wrap;
+  text-align: left;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;
+  word-break: break-word;
+  font-size: 0.9rem;
 }
 
 /* Responsive adjustments */

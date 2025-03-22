@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import React from "react";
 
 function App() {
   // Academic scores
@@ -31,15 +32,35 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showInfoMessage, setShowInfoMessage] = useState(true);
-  
+
   // Define the Flask API endpoint
   const API_URL = "http://localhost:5000/predict";
-  
+
+  // Define a container ref to measure container width
+  const [containerWidth, setContainerWidth] = useState(null);
+  const containerRef = React.useRef(null);
+
+  // Effect to measure container width on mount
+  useEffect(() => {
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Don't scroll - this can cause layout shifts
+    // window.scrollTo(0, 0);
+
+    // Save current width to prevent layout shifts
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+
     setIsLoading(true);
     setError(null);
     setShowInfoMessage(false);
+
     try {
       // Format data exactly as specified
       const formData = {
@@ -83,7 +104,9 @@ function App() {
       // setRecommendation(data.recommendation || "No career path found");
       if (data.recommendation) {
         console.log(data.recommendation);
-        const sortedEntries = Object.entries(data.recommendation).sort((a, b) => b[1] - a[1]); // Sorting in descending order
+        const sortedEntries = Object.entries(data.recommendation).sort(
+          (a, b) => b[1] - a[1]
+        ); // Sorting in descending order
         for (const [key, value] of sortedEntries) {
           console.log(`${key} : ${value}\n`);
           str += `${key} : ${value}\n`;
@@ -99,7 +122,11 @@ function App() {
   };
 
   return (
-    <div className="verticalContainer">
+    <div
+      className="verticalContainer"
+      ref={containerRef}
+      style={{ width: containerWidth ? `${containerWidth}px` : "100%" }}
+    >
       <div className="formSection">
         <form onSubmit={handleSubmit}>
           <div className="formGrid">
@@ -113,7 +140,7 @@ function App() {
                   onChange={(e) => setStudentId(e.target.value)}
                 />
               </div>
-              
+
               <h2>Your Academic Scores:</h2>
               <div className="inputContainer">
                 <label>Math Score (0-100)</label>
@@ -186,7 +213,7 @@ function App() {
                 />
               </div>
             </div>
-            
+
             <div className="formColumn">
               <h2>Your Interest Scores (0-10):</h2>
               <div className="inputContainer">
@@ -241,7 +268,8 @@ function App() {
               </div>
               <div className="inputContainer">
                 <label>
-                  Education: {Educationprefernece === -1 ? 0 : Educationprefernece}
+                  Education:{" "}
+                  {Educationprefernece === -1 ? 0 : Educationprefernece}
                 </label>
                 <input
                   type="range"
@@ -261,12 +289,14 @@ function App() {
                   type="range"
                   min={0}
                   max={10}
-                  value={Engineeringprefernece === -1 ? 0 : Engineeringprefernece}
+                  value={
+                    Engineeringprefernece === -1 ? 0 : Engineeringprefernece
+                  }
                   onChange={(e) => EngineeringsetPrefernece(e.target.value)}
                   step={0.1}
                 />
               </div>
-              
+
               <h2>Your Personality Traits (0-1):</h2>
               <div className="inputContainer">
                 <label>Analytical: {analytical}</label>
@@ -303,7 +333,7 @@ function App() {
               </div>
             </div>
           </div>
-          
+
           <div className="buttonContainer">
             <button type="submit" disabled={isLoading}>
               {isLoading
@@ -313,7 +343,7 @@ function App() {
           </div>
         </form>
       </div>
-      
+
       <div className="outputSection">
         <h2>Career Recommendation:</h2>
         {showInfoMessage && (
@@ -337,9 +367,7 @@ function App() {
         {error && <p className="error">{error}</p>}
         {recommendation && (
           <div className="result">
-            <pre style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
-              {recommendation}
-            </pre>
+            <pre>{recommendation}</pre>
           </div>
         )}
       </div>
