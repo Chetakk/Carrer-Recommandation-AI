@@ -1,12 +1,61 @@
-# React + Vite
+# Frontend - Career Recommendation System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the frontend implementation of the Career Recommendation System, built with React and Vite.
 
-Currently, two official plugins are available:
+## Directory Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+frontend/
+├── src/            # Source code files
+├── public/         # Static files
+├── node_modules/   # Dependencies
+├── package.json    # Project configuration
+├── vite.config.js  # Vite configuration
+└── README.md       # This file
+```
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the development server:
+
+```bash
+npm start
+# or
+npm run dev
+```
+
+3. Build for production:
+
+```bash
+npm run build
+```
+
+## Features
+
+- Modern React-based UI
+- Interactive career recommendation form
+- Real-time API integration with backend
+- Responsive design for all devices
+
+## Development
+
+The frontend is built using:
+
+- React.js
+- Vite for build tooling
+- Material-UI components (or similar UI framework)
+- Axios for API calls
+
+## Environment Variables
+
+Create a `.env` file in the root of the frontend directory with:
+
+```
+REACT_APP_API_URL=http://localhost:5000
+```
