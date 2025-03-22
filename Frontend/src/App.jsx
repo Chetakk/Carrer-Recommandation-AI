@@ -36,26 +36,8 @@ function App() {
   // Define the Flask API endpoint
   const API_URL = "http://localhost:5000/predict";
 
-  // Define a container ref to measure container width
-  const [containerWidth, setContainerWidth] = useState(null);
-  const containerRef = React.useRef(null);
-
-  // Effect to measure container width on mount
-  useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Don't scroll - this can cause layout shifts
-    // window.scrollTo(0, 0);
-
-    // Save current width to prevent layout shifts
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
 
     setIsLoading(true);
     setError(null);
@@ -124,8 +106,13 @@ function App() {
   return (
     <div
       className="verticalContainer"
-      ref={containerRef}
-      style={{ width: containerWidth ? `${containerWidth}px` : "100%" }}
+      style={{
+        width: "100vw",
+        maxWidth: "100vw",
+        margin: 0,
+        padding: "2rem",
+        boxSizing: "border-box",
+      }}
     >
       <div className="formSection">
         <form onSubmit={handleSubmit}>
