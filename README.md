@@ -42,14 +42,12 @@ Career-Recommandation/
 ## Installation
 
 1. Clone the repository:
-
 ```bash
 git clone https://github.com/chetakk/Career-Recommandation.git
 cd Career-Recommandation
 ```
 
 2. Set up the backend:
-
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
@@ -60,7 +58,6 @@ python src/main.py
 ```
 
 3. Set up the frontend:
-
 ```bash
 # Install Node.js dependencies
 cd frontend
@@ -75,32 +72,28 @@ npm start
 ## Development
 
 ### Backend
-
 - Built with Python
 - Uses scikit-learn for ML models
 - Flask for API endpoints
 - Pandas for data processing
 
 ### Frontend
-
 - Built with React.js
 - Material-UI for components
 - Axios for API calls
 - Responsive design
 
+## Environment Variables
+
 ### Backend
-
 Create a `.env` file in the backend directory:
-
 ```
 FLASK_APP=src/main.py
 FLASK_ENV=development
 ```
 
 ### Frontend
-
 Create a `.env` file in the frontend directory:
-
 ```
 REACT_APP_API_URL=http://localhost:5000
 ```
