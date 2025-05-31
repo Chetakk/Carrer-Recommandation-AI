@@ -54,7 +54,7 @@ The frontend is built using:
 
 ## Environment Variables
 
-Create a `.env` file in the root of the frontend directory with:
+Create a `.env`file in the root of the frontend directory with:
 
 ```
 REACT_APP_API_URL=http://localhost:5000
